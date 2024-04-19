@@ -22,11 +22,14 @@
         <nav>
             <a href="index.php">Articles</a>
             <a href="index.php?action=apropos">À propos</a>
-            <a href="index.php?action=connectionForm">Connexion</a>
             <?php
                 // Si on est connecté, on affiche le bouton de déconnexion, sinon, on affiche le bouton de connexion : 
                 if (isset($_SESSION['user'])) {
+                    echo '<a href="index.php?action=admin">Datas</a>';
                     echo '<a href="index.php?action=disconnectUser">Déconnexion</a>';
+                }else{
+                    echo '<a href="index.php?action=connectionForm">Connexion</a>';
+
                 }
                 ?>
         </nav>

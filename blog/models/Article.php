@@ -11,14 +11,22 @@ class Article extends AbstractEntity
     private string    $content      = "";
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate   = null;
+    private array     $comments     = [];
 
     /**
-     * Setter pour l'id de l'utilisateur.
-     * @param int $idUser
+     * @return array
      */
-    public function setIdUser(int $idUser): void
+    public function getComments(): array
     {
-        $this->idUser = $idUser;
+        return $this->comments;
+    }
+
+    /**
+     * @param array $comments
+     */
+    public function setComments(array $comments): void
+    {
+        $this->comments = $comments;
     }
 
     /**
@@ -31,12 +39,12 @@ class Article extends AbstractEntity
     }
 
     /**
-     * Setter pour le titre.
-     * @param string $title
+     * Setter pour l'id de l'utilisateur.
+     * @param int $idUser
      */
-    public function setTitle(string $title): void
+    public function setIdUser(int $idUser): void
     {
-        $this->title = $title;
+        $this->idUser = $idUser;
     }
 
     /**
@@ -49,14 +57,13 @@ class Article extends AbstractEntity
     }
 
     /**
-     * Setter pour le contenu.
-     * @param string $content
+     * Setter pour le titre.
+     * @param string $title
      */
-    public function setContent(string $content): void
+    public function setTitle(string $title): void
     {
-        $this->content = $content;
+        $this->title = $title;
     }
-
 
     /**
      * Getter pour le contenu.
@@ -80,6 +87,35 @@ class Article extends AbstractEntity
     }
 
     /**
+     * Setter pour le contenu.
+     * @param string $content
+     */
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * Getter pour la date de création.
+     * Grâce au setter, on a la garantie de récupérer un objet DateTime.
+     * @return DateTime|IntlDateFormatter |string
+     */
+    public function getDateCreation(): DateTime|IntlDateFormatter|string
+    {
+
+        /* if (!is_string($this->dateCreation)) {
+             $dateCreation = new IntlDateFormatter('fr_FR',IntlDateFormatter::FULL,
+                 IntlDateFormatter::FULL,
+                 'Europe/Paris',
+                 IntlDateFormatter::GREGORIAN,
+                 'MM/dd/yyyy');
+            return $dateCreation->format($this->dateCreation);
+         }*/
+
+        return $this->dateCreation;
+    }
+
+    /**
      * Setter pour la date de création. Si la date est une string, on la convertit en DateTime.
      * @param string|DateTime $dateCreation
      * @param string $format : le format pour la convertion de la date si elle est une string.
@@ -94,23 +130,14 @@ class Article extends AbstractEntity
     }
 
     /**
-     * Getter pour la date de création.
-     * Grâce au setter, on a la garantie de récupérer un objet DateTime.
-     * @return DateTime|IntlDateFormatter |string
+     * Getter pour la date de mise à jour.
+     * Grâce au setter, on a la garantie de récupérer un objet DateTime ou null
+     * si la date de mise à jour n'a pas été définie.
+     * @return DateTime|null
      */
-    public function getDateCreation(): DateTime|IntlDateFormatter |string
+    public function getDateUpdate(): ?DateTime
     {
-
-        if (!is_string($this->dateCreation)) {
-            $dateCreation = new IntlDateFormatter('fr_FR',IntlDateFormatter::FULL,
-                IntlDateFormatter::FULL,
-                'Europe/Paris',
-                IntlDateFormatter::GREGORIAN,
-                'MM/dd/yyyy');
-           return $dateCreation->format($this->dateCreation);
-
-        }
-        return $this->dateCreation;
+        return $this->dateUpdate;
     }
 
     /**
@@ -125,16 +152,5 @@ class Article extends AbstractEntity
             $dateUpdate = DateTime::createFromFormat($format, $dateUpdate);
         }
         $this->dateUpdate = $dateUpdate;
-    }
-
-    /**
-     * Getter pour la date de mise à jour.
-     * Grâce au setter, on a la garantie de récupérer un objet DateTime ou null
-     * si la date de mise à jour n'a pas été définie.
-     * @return DateTime|null
-     */
-    public function getDateUpdate(): ?DateTime
-    {
-        return $this->dateUpdate;
     }
 }
