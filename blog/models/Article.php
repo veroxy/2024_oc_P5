@@ -111,6 +111,8 @@
      */
     public function setDateUpdate(string|DateTime $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
     {
+        var_dump($dateUpdate);
+
         if (is_string($dateUpdate)) {
             $dateUpdate = DateTime::createFromFormat($format, $dateUpdate);
         }

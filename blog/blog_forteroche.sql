@@ -99,11 +99,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `user`
+-- Déchargement des données de la table `user` login: Emilie - password
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `nickname`) VALUES
-(1, 'Emilie', '$2y$10$OefkCWfcDo.GKgFS2qmFYuITgzdDsrBp67p2.IrJOutZ9ptcsKCb.', 'Emilie Forteroche');
+(1, 'Emilie', '$2y$10$OefkCWfcDo.GKgFS2qmFYuITgzdDsrBp67p2.IrJOutZ9ptcsKCb.', 'Emilie Forteroche'),
+(2, 'caca', 'boudin', 'Caca Boudin');
 
 --
 -- Contraintes pour les tables déchargées
