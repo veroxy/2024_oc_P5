@@ -59,11 +59,6 @@ while (true) {
     $contact  = new ContactManager();
     $cmd      = new Command($contact);
 
-    $contacts = $cmd->list();
-
-
-    var_dump($contacts, $cmd->showContacts($contacts));
-
 
     switch ($command) {
         case "create" :

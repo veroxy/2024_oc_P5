@@ -38,11 +38,20 @@ class Contact
 
     }*/
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf("contact: #" . $this->id . "," . $this->name . " avec le mail : " . $this->email . " et le numéro " . $this->phone_number . ".\n");
+    }
+
     public function list()
     {
         if ($this->db) {
             $sql   = 'SELECT * FROM contact ORDER BY id ASC';
             $query = $this->db->prepare($sql);
+            $query->execute();
             $query->execute();
             $value = $query->fetchAll();
 

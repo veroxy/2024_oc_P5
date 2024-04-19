@@ -110,6 +110,8 @@ class ContactManager
     {
         $pdo     = $this->getOne($id);
         $contact = new Contact();
+
+
         $contact::setProps($pdo);
     }
 
@@ -126,6 +128,7 @@ class ContactManager
             echo "Voici le contact $id \n";
 //            var_dump($req);
 //            print_r($query, "getOne");
+            var_dump($contact, "getONe");
             return $contact;
 //            self::getParam($req);
         }
