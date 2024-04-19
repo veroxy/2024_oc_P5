@@ -75,8 +75,6 @@ class ContactManager
                 $query = $this->db->prepare($sql);
                 $query->execute();
                 $req = $query->fetchAll();
-
-                var_dump($req);
                 return self::getParam($req);
 
             }
@@ -92,20 +90,15 @@ class ContactManager
      * Dans cette classe, créez en particulier une méthode findAll() qui ne prend rien en paramètre et retourne un tableau. Chaque élément du tableau contiendra les informations d’un contact (le résultat du fetch). Le but de cette méthode sera de réaliser une requête SQL pour récupérer l’ensemble des contacts.
      * N’oubliez pas de tester tout de suite le résultat directement dans la méthode findAll. Le but est à nouveau de s’assurer que tout fonctionne avant d’aller plus loin et d’empiler les bugs !
      */
-    public static function getParam(array $reqAll):array
+    public static function getParam(array $reqAll): array
     {
         $contacts = [];
         foreach ($reqAll as $key => $contact) {
-
-
-            if (!in_array($contact['id'], $contacts[$key])) {
-                $n = new Contact($contact);
-                $contacts[$contact['id']] = $n;
-                var_dump($n);
-                print_r("Ceci est le Contact #" . $contact['id'] . ", s'appelant " . $contact['name'] . " avec le mail : " . $contact['email'] . " et le numéro " . $contact['phone_number'] . "\n");
-            }
+            $n                        = new Contact($contact);
+            $contacts[$contact['id']] = $n;
+            print_r("Ceci est le Contact #" . $contact['id'] . ", s'appelant " . $contact['name'] . " avec le mail : " . $contact['email'] . " et le numéro " . $contact['phone_number'] . "\n");
         }
-        var_dump(gettype($contacts));
+
         return $contacts;
     }
 
@@ -122,19 +115,19 @@ class ContactManager
 
     public function getOne(int $id)
     {
-
         if ($this->db) {
             $sql   = "SELECT * FROM contact WHERE id=:id";
             $query = $this->db->prepare($sql);
             $query->BindParam('id', $id, PDO::PARAM_INT);
-
             $query->execute();
 
             $req = $query->fetch();
+            $contact = new Contact($req);
             echo "Voici le contact $id \n";
 //            var_dump($req);
 //            print_r($query, "getOne");
-            return $req;
+            return $contact;
+//            self::getParam($req);
         }
     }
 

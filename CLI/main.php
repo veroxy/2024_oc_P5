@@ -54,13 +54,17 @@ while (true) {
     $params  = explode(' ', trim($input));
     $command = strtolower($params[0]);
     array_shift($params);
+
+
     $contact  = new ContactManager();
     $cmd      = new Command($contact);
+
     $contacts = $cmd->list();
 
 
     var_dump($contacts, $cmd->showContacts($contacts));
-    exit();
+
+
     switch ($command) {
         case "create" :
             // TOFIXED element contact::setProp(xx)

@@ -8,21 +8,12 @@ class Contact
     private string $phone_number = '';
     private int    $id ;
 
-//    public function __construct($data)
-//    {
-//        $this->setName($data['name']);
-//       $this->setEmail($data['email']);
-//         $this->setPhoneNumber($data['phone_number']);
-//        $this->id           = $data['id'] ?: null;
-//
-//    }
-
 
     /**
      * @param PDO|array $objContact
      * @return void
      */
-    public static function setProps(PDO|array $objContact)
+  /*  public static function setProps(PDO|array $objContact)
     {
 
         if ($objContact) {
@@ -45,15 +36,7 @@ class Contact
             }
         }
 
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return sprintf("contact: #" . $this->id . "," . $this->name . " avec le mail : " . $this->email . " et le numéro " . $this->phone_number . ".\n");
-    }
+    }*/
 
     public function list()
     {
