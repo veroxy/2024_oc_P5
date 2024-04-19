@@ -76,6 +76,7 @@ form h2 {
     margin: 0 0 20px 0;
     color: white;
 }
+
 form label {
     font-weight: bold;
     font-size: 14px;
@@ -118,7 +119,7 @@ form .formGrid .submit {
 .foldedCorner {
     position: relative;
     overflow: hidden;
-} 
+}
 
 .foldedCorner::before {
     content: "";
@@ -140,7 +141,7 @@ header {
     flex-direction: column;
     width: 100%;
     margin-bottom: 30px;
-    background-color: var(--headerPaleColor); 
+    background-color: var(--headerPaleColor);
 }
 
 header > nav {
@@ -305,7 +306,7 @@ a.info {
 
 /**
  * Partie admin
- */ 
+ */
 
 .adminArticle {
     margin-bottom: 20px;
@@ -313,8 +314,12 @@ a.info {
     color: white;
 }
 
+.articleLine:nth-child(even) {
+    background-color: var(--headerColor);
+}
+
 .articleLine {
-    display: flex; 
+    display: flex;
 }
 
 .articleLine div {
