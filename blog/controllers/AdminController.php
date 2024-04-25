@@ -143,6 +143,7 @@ class AdminController
         // On vérifie que les données sont valides.
         if (empty($title) || empty($content)) {
             throw new Exception("Tous les champs sont obligatoires. 2");
+            throw new Exception("Tous les champs sont obligatoires. 2");
         }
 
         // On crée l'objet Article.
@@ -175,6 +176,26 @@ class AdminController
         // On supprime l'article.
         $articleManager = new ArticleManager();
         $articleManager->deleteArticle($id);
+
+        // On redirige vers la page d'administration.
+        Utils::redirect("admin");
+    }
+
+
+    /**
+     * Suppression d'un comment.
+     * @return void
+     */
+    public function deleteComment(): void
+    {
+        $this->checkIfUserIsConnected();
+
+        $id = Utils::request("id", -1);
+
+        // On supprime l'article.
+        $commentManager = new CommentManager();
+        var_dump($id);
+        $commentManager->deleteComment($id);
 
         // On redirige vers la page d'administration.
         Utils::redirect("admin");

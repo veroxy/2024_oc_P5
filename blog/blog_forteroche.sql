@@ -103,8 +103,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `nickname`) VALUES
-(1, 'Emilie', '$2y$10$OefkCWfcDo.GKgFS2qmFYuITgzdDsrBp67p2.IrJOutZ9ptcsKCb.', 'Emilie Forteroche'),
-(2, 'caca', 'boudin', 'Caca Boudin');
+(1, 'Emilie', '$2y$10$OefkCWfcDo.GKgFS2qmFYuITgzdDsrBp67p2.IrJOutZ9ptcsKCb.', 'Emilie Forteroche');
 
 --
 -- Contraintes pour les tables déchargées
@@ -115,7 +114,6 @@ INSERT INTO `user` (`id`, `login`, `password`, `nickname`) VALUES
 --
 ALTER TABLE `article`
   ADD CONSTRAINT `link_article_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 --
 -- Contraintes pour la table `comment`
 --

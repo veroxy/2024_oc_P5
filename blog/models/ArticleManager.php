@@ -18,7 +18,7 @@ class ArticleManager extends AbstractEntityManager
         $articles = [];
 
         while ($article = $result->fetch()) {
-            var_dump($article);
+//            var_dump($article);
             $comments = $commentManager->getAllCommentsByArticleId($article['id']);
             $newbie   = new Article($article);
             $newbie->setComments($comments);
