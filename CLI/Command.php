@@ -65,7 +65,6 @@ class Command
         detail [id] :  Afficher le détail d’un contact.\n
         create [name], [email], [phone number] : Ajouter un contact.\n
         delete [id] : Supprimer un contact.\n 
-        update [id]:  modifier un contact.\n
         quit : Quitter le programme.\n";
     }
 

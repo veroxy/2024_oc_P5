@@ -44,7 +44,7 @@ function ft_colorSucces(string $str)
 function ft_readline($qa = false)
 {
     if(!$qa) {
-        $input = readline("Entrez votre commande (help, list, create, detail,delete, quit) : ");
+        $input = readline("Entrez votre commande (help, list, create, detail, delete, quit) : ");
         /*for($i=1; $i<3; ++$i){
             $input = !empty($input) ? $input : ft_readline();
         }*/
@@ -88,12 +88,6 @@ while (true) {
 
             $props = ft_getParamNb($params, 3, $cmd->create($params));
             array_push($contacts, $props);
-            break;
-        case "update" :
-//            if (count($params) === 1 && is_integer($params[0])) {
-            if (is_integer($params[0])) {
-                ft_getParamNb($params, 3, $cmd->update($params[0]));
-            }
             break;
         case "delete" :
             if (is_numeric($params[0])) {
