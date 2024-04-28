@@ -143,7 +143,6 @@ class AdminController
         // On vérifie que les données sont valides.
         if (empty($title) || empty($content)) {
             throw new Exception("Tous les champs sont obligatoires. 2");
-            throw new Exception("Tous les champs sont obligatoires. 2");
         }
 
         // On crée l'objet Article.

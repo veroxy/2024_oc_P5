@@ -12,6 +12,35 @@ class Article extends AbstractEntity
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate   = null;
     private array     $comments     = [];
+    private int       $views        = 0;
+    private string    $slug         = '';
+
+    public function getSlug(): string
+    {
+
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $textlower = isset($slug) ? ucfirst($slug) : ucfirst($this->title);
+        var_dump("lkhgd");
+        //convert special characters to normal
+        $p       = iconv('utf-8', 'ascii//TRANSLIT', $textlower);
+        echo $p;
+        $this->slug = str_replace(' ', '-', $p);
+    }
+
+
+    public function getViews(): int
+    {
+        return $this->views;
+    }
+
+    public function setViews(int $views): void
+    {
+        $this->views = $views;
+    }
 
     /**
      * @return array

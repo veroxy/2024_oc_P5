@@ -3,14 +3,27 @@
  * Ce template affiche un article et ses commentaires.
  * Il affiche également un formulaire pour ajouter un commentaire.
  */
+
+if(isset($_SESSION['page_views_'.$article->getSlug()]))
+{
+    // Increment the page view counter
+    $_SESSION['page_views_'. $article->getSlug()]++;
+} Else {
+    // Set the initial page view counter to 1
+    $_SESSION['page_views_'.$article->getSlug()] = 1;
+}
+
 ?>
 
 <article class="mainArticle">
-    <h2> <?= Utils::format($article->getTitle()) ?> </h2>
+    <h2> <?= Utils::format($article->getTitle()) ?>  </h2>
     <span class="quotation">«</span>
     <p><?= Utils::format($article->getContent()) ?></p>
 
     <div class="footer">
+        <span class="info" id=" <?= 'page_views_'.$article->getSlug()?>"> Nombre de vue <?= $article->getViews() ;
+            // Display the page view count
+            echo $_SESSION['page_views_'.$article->getSlug()]; ?></span>
         <span class="info"> Publié le <?= Utils::convertDateToFrenchFormat($article->getDateCreation()) ?></span>
         <?php if ($article->getDateUpdate() != null) { ?>
             <span class="info"> Modifié le <?= Utils::convertDateToFrenchFormat($article->getDateUpdate()) ?></span>
