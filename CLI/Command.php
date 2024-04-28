@@ -37,7 +37,7 @@ class Command
     /**
      * @return null
      */
-   public function list()
+    public function list()
     {
         return $this->contact->findAll();
     }
@@ -46,7 +46,7 @@ class Command
      * @param int $id
      * @return false|PDOStatement|string
      */
-   public function delete(int $id)
+    public function delete(int $id)
     {
 
         return $this->contact->delete($id);
@@ -55,7 +55,7 @@ class Command
     /**
      * @return void
      */
-   public function help()
+    public function help()
     {
         echo
         "
@@ -80,8 +80,14 @@ class Command
 
     public function showContacts($contacts)
     {
-        foreach ($contacts as $contact) {
-            echo $contact->__toString();
+        if (is_array($contacts)) {
+            foreach ($contacts as $contact) {
+                echo $contact->__toString();
+            }
+        } else {
+            var_dump($contacts);
+            echo $contacts->__toString();
+
         }
     }
 }

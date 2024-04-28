@@ -1,5 +1,7 @@
 <?php
 
+use function Cli\ft_colorSucces;
+
 include "Contact.php";
 include "DBConnect.php";
 
@@ -37,28 +39,27 @@ class ContactManager
      */
     function create(array $params)
     {
-
-
         $req          = "ERREUR, il y un  problème dans la requette";
         $email        = filter_var($params[1], FILTER_VALIDATE_EMAIL) ? $params[1] : NULL;
         $name_contact = implode(' ', array_slice(array_reverse($params), -1));
         $phone        = filter_var($params[2], FILTER_SANITIZE_NUMBER_INT);
         $phone_number = strlen($phone) >= 10 && strlen($phone) < 20 ? $phone : false;
-
         if ($this->db && $phone_number) {
             $sql   = "INSERT INTO contact(`name`, `email`, `phone_number`) VALUES ('$name_contact', '$email', '$phone_number')";
             $query = $this->db->prepare($sql);
             $query->execute();
 
-            printf("vous avez créer un nouveau contact: " . $name_contact . " avec le mail : " . $email . " et le numéro " . $phone_number . "\n");
+           echo ft_colorSucces("vous avez créer un nouveau contact: " . $name_contact . " avec le mail : " . $email . " et le numéro " . $phone_number . "\n");
 
-            $sql   = "SELECT * FROM `contact` ORDER BY id DESC LIMIT 1";
+            // risque d'erreur multiples inseetions ??
+//            $sql   = "SELECT * FROM `contact` ORDER BY id DESC LIMIT 1";
+
+            $sql   = "SELECT * FROM `contact` WHERE phone_number=:phone_number";
             $query = $this->db->prepare($sql);
+            $query->BindParam('phone_number', $phone_number);
             $query->execute();
-            $req = $query->fetch();
-
+            $req = new Contact($query->fetch());
         }
-        var_dump($req, "=> valeur crée");
 
         return $req;
     }
@@ -123,14 +124,10 @@ class ContactManager
             $query->BindParam('id', $id, PDO::PARAM_INT);
             $query->execute();
 
-            $req = $query->fetch();
+            $req     = $query->fetch();
             $contact = new Contact($req);
-            echo "Voici le contact $id \n";
-//            var_dump($req);
-//            print_r($query, "getOne");
-            var_dump($contact, "getONe");
+            echo ft_colorSucces($contact->__toString());
             return $contact;
-//            self::getParam($req);
         }
     }
 
@@ -141,14 +138,22 @@ class ContactManager
     function delete(int $id)
     {
         $value   = "ERREUR, il y un  problème dans la requete";
-        $contact = $this->getOne($id);
+        echo "etes vous sûr de vouloir suprimer le " .
+        $this->getOne($id);
 
-        if ($this->db) {
-            $sql   = "DELETE FROM contact WHERE id=:id";
-            $query = $this->db->prepare($sql);
-            $query->BindParam('id', $id, PDO::PARAM_INT);
-            $query->execute();
-            echo "Vous avez supprimé le contact $id \n";
+//        echo("\e[0m\e[34mPromt>\e[0m");
+        $validsdtin = \Cli\ft_readline(true);
+        if($validsdtin) {
+            if ($this->db) {
+                $sql   = "DELETE FROM contact WHERE id=:id";
+                $query = $this->db->prepare($sql);
+                $query->BindParam('id', $id, PDO::PARAM_INT);
+                $query->execute();
+                echo ft_colorSucces("Vous avez supprimé le contact $id")."\n";
+            }
+        }
+        else{
+            echo "vous vous etes trompé de contact? recommencez.\n";
         }
         return $value;
     }

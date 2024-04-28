@@ -28,20 +28,37 @@ function objectExist($entity, $array, $new_element)
     return $array;
 }
 
-function ft_readline()
+function ft_colorError(string $str)
 {
-    $input = readline("Entrez votre commande (help, list, create, detail,delete) : ");
-    /*for($i=1; $i<3; ++$i){
-        $input = !empty($input) ? $input : ft_readline();
-    }*/
-    echo !empty($input) ? "Vous avez saisi : $input\n" : "Vous n'avez rien saisi.\n";
+    //The characters \033 indicate the start of an escape code. [31m is the colour red. [0m signifies the end of the coded fragment.
+    return "\033[31m" . $str . "\033[0m";
+
+}
+
+function ft_colorSucces(string $str)
+{
+    //The characters \033 indicate the start of an escape code. [31m is the colour red. [0m signifies the end of the coded fragment.
+    return "\033[32m" . $str . "\033[0m";
+}
+
+function ft_readline($qa = false)
+{
+    if(!$qa) {
+        $input = readline("Entrez votre commande (help, list, create, detail,delete, quit) : ");
+        /*for($i=1; $i<3; ++$i){
+            $input = !empty($input) ? $input : ft_readline();
+        }*/
+        echo !empty($input) ? "Vous avez saisi : $input\n" : ft_colorError("vous n'avez rien saisi.\n");
+    }else{
+        $input = readline("Oui(O) ou Non(N) : ");
+        $input = $input === strtolower("O") ? true : false;
+    }
     return $input;
 }
 
 function ft_getParamNb(array $params, int $nb, $ft_command)
 {
-    var_dump(count($params) == $nb);
-    return count($params) == $nb ? $ft_command : printf(count($params) . "paramètres, il vous manque un ou plusieurs paramètres.\n");
+    return count($params) == $nb ? $ft_command : sprintf(ft_colorError(count($params) . " paramètres, il vous manque un ou plusieurs paramètres.\n"));
 }
 
 $contacts = [];
@@ -56,17 +73,21 @@ while (true) {
     array_shift($params);
 
 
-    $contact  = new ContactManager();
-    $cmd      = new Command($contact);
+    $contact = new ContactManager();
+    $cmd     = new Command($contact);
 
 
     switch ($command) {
         case "create" :
             // TOFIXED element contact::setProp(xx)
+            if (count($params) == 4) {
+                $params[1] = $params[0] .' '. $params[1];
+                array_shift($params);
+            var_dump($params);
+            }
+
             $props = ft_getParamNb($params, 3, $cmd->create($params));
-            var_dump("newbie: ", $props);
             array_push($contacts, $props);
-            var_dump($contacts);
             break;
         case "update" :
 //            if (count($params) === 1 && is_integer($params[0])) {
@@ -79,19 +100,13 @@ while (true) {
                 ft_getParamNb($params, 1, $cmd->delete($params[0]));
                 $cmd->list();
             } else {
-                echo count($params) . " paramètres, vérifiez vos paramètres.\n";
+                echo ft_colorError(count($params) . " paramètres, vérifiez vos paramètres.\n");
             }
             break;
         case "list" :
 
-            if (empty($contacts)) {
-                $contacts = $cmd->list();
-            } else {
-//                if($params[0]){
-                $cmd->showContacts($contacts);
-//                }
-            }
-            var_dump($contacts);
+            $contacts = $cmd->list();
+
             break;
         case  "detail":
             if (count($params) > 0) {
@@ -108,5 +123,4 @@ while (true) {
             $cmd->help();
             break;
     }
-//    var_dump($contacts);
 }
