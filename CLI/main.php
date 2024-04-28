@@ -105,6 +105,8 @@ while (true) {
         case  "detail":
             if (count($params) > 0) {
                 ft_getParamNb($params, 1, $cmd->detail($params[0]));
+            }else{
+                echo "il vous manque un paramètre id";
             }
             break;
         case  "quit":

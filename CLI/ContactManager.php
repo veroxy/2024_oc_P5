@@ -1,6 +1,7 @@
 <?php
 
 use function Cli\ft_colorSucces;
+use function Cli\ft_readline;
 
 include "Contact.php";
 include "DBConnect.php";
@@ -49,7 +50,7 @@ class ContactManager
             $query = $this->db->prepare($sql);
             $query->execute();
 
-           echo ft_colorSucces("vous avez créer un nouveau contact: " . $name_contact . " avec le mail : " . $email . " et le numéro " . $phone_number . "\n");
+            echo ft_colorSucces("vous avez créer un nouveau contact: " . $name_contact . " avec le mail : " . $email . " et le numéro " . $phone_number . "\n");
 
             // risque d'erreur multiples inseetions ??
 //            $sql   = "SELECT * FROM `contact` ORDER BY id DESC LIMIT 1";
@@ -105,18 +106,15 @@ class ContactManager
 
     /**
      * @param int $id
-     * @return void
+     * @return Contact $contact
      */
-    public function show(int $id): void
+    public function show(int $id): Contact
     {
-        $pdo     = $this->getOne($id);
-        $contact = new Contact();
-
-
-        $contact::setProps($pdo);
+        $contact = $this->findOneByid($id);
+        return $contact;
     }
 
-    public function getOne(int $id)
+    public function findOneByid(int $id)
     {
         if ($this->db) {
             $sql   = "SELECT * FROM contact WHERE id=:id";
@@ -137,22 +135,21 @@ class ContactManager
      */
     function delete(int $id)
     {
-        $value   = "ERREUR, il y un  problème dans la requete";
+        $value = "ERREUR, il y un  problème dans la requete";
         echo "etes vous sûr de vouloir suprimer le " .
-        $this->getOne($id);
+            $this->findOneByid($id);
 
 //        echo("\e[0m\e[34mPromt>\e[0m");
-        $validsdtin = \Cli\ft_readline(true);
-        if($validsdtin) {
+        $validsdtin = ft_readline(true);
+        if ($validsdtin) {
             if ($this->db) {
                 $sql   = "DELETE FROM contact WHERE id=:id";
                 $query = $this->db->prepare($sql);
                 $query->BindParam('id', $id, PDO::PARAM_INT);
                 $query->execute();
-                echo ft_colorSucces("Vous avez supprimé le contact $id")."\n";
+                echo ft_colorSucces("Vous avez supprimé le contact $id") . "\n";
             }
-        }
-        else{
+        } else {
             echo "vous vous etes trompé de contact? recommencez.\n";
         }
         return $value;
