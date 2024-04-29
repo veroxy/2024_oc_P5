@@ -21,8 +21,8 @@ if(isset($_SESSION['page_views_'.$article->getSlug()]))
     <p><?= Utils::format($article->getContent()) ?></p>
 
     <div class="footer">
-        <span class="info" id=" <?= 'page_views_'.$article->getSlug()?>"> Nombre de vue <?= $article->getViews() ;
-            // Display the page view count
+        <span class="info" id="<?= 'page_views_'.$article->getSlug()?>"> Nombre de vue <?= $article->getViews() ;
+            // nb - the page view count
             echo $_SESSION['page_views_'.$article->getSlug()]; ?></span>
         <span class="info"> Publié le <?= Utils::convertDateToFrenchFormat($article->getDateCreation()) ?></span>
         <?php if ($article->getDateUpdate() != null) { ?>

@@ -13,7 +13,14 @@ class Article extends AbstractEntity
     private ?DateTime $dateUpdate   = null;
     private array     $comments     = [];
     private int       $views        = 0;
-    private string    $slug         = '';
+    private string    $slug         = "";
+
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+
+        $this->setSlug($data['title']);
+    }
 
     public function getSlug(): string
     {
@@ -21,14 +28,14 @@ class Article extends AbstractEntity
         return $this->slug;
     }
 
-    public function setSlug(string $slug): void
+    public function setSlug(string $title): void
     {
-        $textlower = isset($slug) ? ucfirst($slug) : ucfirst($this->title);
-        var_dump("lkhgd");
+        $textlower = isset($title) ? strtolower($title) : strtolower($this->title);
         //convert special characters to normal
-        $p       = iconv('utf-8', 'ascii//TRANSLIT', $textlower);
-        echo $p;
-        $this->slug = str_replace(' ', '-', $p);
+        $utf8normal   = iconv('utf-8', 'ascii//TRANSLIT', $textlower);
+        $specialchars = preg_replace("/[:']/", '', $utf8normal);
+        $this->slug   = str_replace(' ', '_', $specialchars);
+
     }
 
 
