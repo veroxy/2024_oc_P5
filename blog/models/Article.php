@@ -19,7 +19,9 @@ class Article extends AbstractEntity
     {
         parent::__construct($data);
 
-        $this->setSlug($data['title']);
+        if ($data) {
+            $this->setSlug($data['title']);
+        }
     }
 
     public function getSlug(): string
@@ -28,9 +30,9 @@ class Article extends AbstractEntity
         return $this->slug;
     }
 
-    public function setSlug(string $title): void
+    public function setSlug(string $input): void
     {
-        $textlower = isset($title) ? strtolower($title) : strtolower($this->title);
+        $textlower = isset($input) ? strtolower($input) : strtolower($this->title);
         //convert special characters to normal
         $utf8normal   = iconv('utf-8', 'ascii//TRANSLIT', $textlower);
         $specialchars = preg_replace("/[:']/", '', $utf8normal);
