@@ -70,5 +70,4 @@ class CommentManager extends AbstractEntityManager
         $sql = "DELETE FROM comment WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
     }
-
 }

@@ -11,21 +11,20 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getAllArticles(): array
     {
-        $commentManager = new CommentManager();
-
         $sql      = "SELECT * FROM article";
         $result   = $this->db->query($sql);
-        $articles = [];
+        $articles = $this->getComments($result);
+        return $articles;
+    }
 
-        while ($article = $result->fetch()) {
-//            var_dump($article);
+    private function getComments($res): array
+    {
+        $commentManager = new CommentManager();
+        while ($article = $res->fetch()) {
             $comments = $commentManager->getAllCommentsByArticleId($article['id']);
-            $newbie   = new Article($article);
-            $newbie->setComments($comments);
-
-            $articles[] = $newbie;
-
-
+            $post     = new Article($article);
+            $post->setComments($comments);
+            $articles[] = $post;
         }
         return $articles;
     }
@@ -113,5 +112,19 @@ class ArticleManager extends AbstractEntityManager
     {
         $sql = "DELETE FROM article WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
+    }
+
+    public function orderByTitleAsc(): array
+    {
+        $sql    = "SELECT * FROM article ORDER BY title ASC";
+        $result = $this->db->query($sql);
+        return $this->getComments($result);
+    }
+
+    public function orderByTitleDesc(): array
+    {
+        $sql    = "SELECT * FROM article ORDER BY title DESC ";
+        $result = $this->db->query($sql);
+        return $this->getComments($result);
     }
 }

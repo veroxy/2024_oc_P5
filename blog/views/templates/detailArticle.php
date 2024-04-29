@@ -13,8 +13,7 @@
     <p><?= Utils::format($article->getContent()) ?></p>
 
     <div class="footer">
-        <span class="info"
-              id="page_views_<?= Utils::format($article->getSlug()) ?>"> Nombre de vue <?= Utils::format($article->getViews()) ?></span>
+        <span class="info" id="page_views_<?= $article->getSlug() ?>"> Nombre de vue <?= $article->getViews() ?></span>
         <span class="info"> Publié le <?= Utils::convertDateToFrenchFormat($article->getDateCreation()) ?></span>
         <?php if ($article->getDateUpdate() != null) { ?>
             <span class="info"> Modifié le <?= Utils::convertDateToFrenchFormat($article->getDateUpdate()) ?></span>

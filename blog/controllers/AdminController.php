@@ -199,4 +199,26 @@ class AdminController
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }
+
+    public function orderByTitleAsc(): void
+    {
+        $this->checkIfUserIsConnected();
+        $articleManager = new ArticleManager();
+        $articles       = $articleManager->orderByTitleAsc();
+        $view           = new View("Administration");
+        $view->render("admin", [
+            'articles' => $articles
+        ]);
+    }
+
+    public function orderByTitleDesc(): void
+    {
+        $this->checkIfUserIsConnected();
+        $articleManager = new ArticleManager();
+        $articles       = $articleManager->orderByTitleDesc();
+        $view           = new View("Administration");
+        $view->render("admin", [
+            'articles' => $articles
+        ]);
+    }
 }
