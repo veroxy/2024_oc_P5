@@ -60,7 +60,9 @@ a {
     text-decoration: none;
     color: inherit;
 }
-
+table, th, td {
+    border-collapse: collapse;
+}
 /**
  * Styles des formulaires.
  */
@@ -318,29 +320,45 @@ a.info {
     background-color: var(--headerColor);
 }
 
-.articleLine {
+/*.articleLine,
+.articleHeaderLine {
     display: flex;
-}
+}*/
 
 .articleLine div {
     display: flex;
     align-items: center;
 }
 
-.articleLine .title {
+.articleLine .title,
+.articleHeaderLine th {
     font-weight: bold;
+}
+
+.articleLine .title,
+.articleHeaderLine .title {
     min-width: 200px;
     width: 200px;
 }
 
-.articleLine .content {
-    flex-grow: 1;
+.articleLine .content,
+.articleHeaderLine .content {
+    /*flex-grow: 1;*/
+    min-width: 400px;
+    width: 400px;
 }
 
-.articleLine > div {
+.articleLine > div,
+.articleLine > td,
+.articleHeaderLine > th {
     padding: 20px;
+}
+.articleLine > div,
+.articleLine,
+.articleHeaderLine {
     border: 1px solid var(--backgroundColor);
 }
+
 
 /** 
  * Footer global de la page.
