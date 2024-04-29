@@ -102,8 +102,6 @@ class ArticleManager extends AbstractEntityManager
             'views' => $article->getViews(),
             'id' => $article->getId()
         ]);
-//        $this->updateArticle($article);
-
     }
 
     /**
