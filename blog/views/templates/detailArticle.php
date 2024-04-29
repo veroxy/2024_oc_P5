@@ -4,14 +4,6 @@
  * Il affiche également un formulaire pour ajouter un commentaire.
  */
 
-if(isset($_SESSION['page_views_'.$article->getSlug()]))
-{
-    // Increment the page view counter
-    $_SESSION['page_views_'. $article->getSlug()]++;
-} Else {
-    // Set the initial page view counter to 1
-    $_SESSION['page_views_'.$article->getSlug()] = 1;
-}
 
 ?>
 
@@ -21,9 +13,8 @@ if(isset($_SESSION['page_views_'.$article->getSlug()]))
     <p><?= Utils::format($article->getContent()) ?></p>
 
     <div class="footer">
-        <span class="info" id="<?= 'page_views_'.$article->getSlug()?>"> Nombre de vue <?= $article->getViews() ;
-            // nb - the page view count
-            echo $_SESSION['page_views_'.$article->getSlug()]; ?></span>
+        <span class="info"
+              id="page_views_<?= Utils::format($article->getSlug()) ?>"> Nombre de vue <?= Utils::format($article->getViews()) ?></span>
         <span class="info"> Publié le <?= Utils::convertDateToFrenchFormat($article->getDateCreation()) ?></span>
         <?php if ($article->getDateUpdate() != null) { ?>
             <span class="info"> Modifié le <?= Utils::convertDateToFrenchFormat($article->getDateUpdate()) ?></span>
@@ -46,7 +37,7 @@ if(isset($_SESSION['page_views_'.$article->getSlug()]))
             echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
             if (isset($_SESSION['user'])) {
                 echo "<div><a class='submit'
-                    href='index.php?action=deleteComment&id=". $comment->getId(). "'". Utils::askConfirmation('Êtes-vous sûr de vouloir supprimer cet comment ?.')." >Supprimer</a></div>";
+                    href='index.php?action=deleteComment&id=" . $comment->getId() . "'" . Utils::askConfirmation('Êtes-vous sûr de vouloir supprimer cet comment ?.') . " >Supprimer</a></div>";
             }
 
             echo '  </div>';
