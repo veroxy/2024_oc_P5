@@ -344,7 +344,9 @@ a.info {
 .articleHeaderLine th {
     font-weight: bold;
 }
-
+.articleHeaderLine .t-cell{
+    min-width: 150px;
+}
 .articleLine .title,
 .articleHeaderLine .title {
     min-width: 200px;
@@ -354,8 +356,8 @@ a.info {
 .articleLine .content,
 .articleHeaderLine .content {
     /*flex-grow: 1;*/
-    min-width: 400px;
-    width: 400px;
+    min-width: 300px;
+    width: 300px;
 }
 
 .articleLine > div,

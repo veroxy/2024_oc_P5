@@ -17,7 +17,7 @@ class ArticleManager extends AbstractEntityManager
         return $articles;
     }
 
-    private function getComments($res): array
+    private function getComments(PDOStatement $res): array
     {
         $commentManager = new CommentManager();
         while ($article = $res->fetch()) {
@@ -127,4 +127,36 @@ class ArticleManager extends AbstractEntityManager
         $result = $this->db->query($sql);
         return $this->getComments($result);
     }
+
+    public function orderBy(string $order, string $db_column): array
+    {
+        // soit case soit
+        if ($db_column != "comments") {
+            $sql      = "SELECT * FROM article ORDER BY $db_column $order";
+            $result   = $this->db->query($sql);
+            $articles = $this->getComments($result);
+        } else {
+            $sql      = "SELECT a.*, count(c.id_article) as comments
+                    FROM article a
+                        join
+                         comment c
+                    WHERE c.id_article=a.id
+                    GROUP BY c.id_article   
+                    ORDER BY $db_column $order";
+            $result   = $this->db->query($sql);
+            $articles = $this->getNbComments($result);
+        }
+        return $articles;
+    }
+
+    private function getNbComments(PDOStatement $res): array
+    {
+        while ($article = $res->fetch()) {
+
+            $post       = new Article($article);
+            $articles[] = $post;
+        }
+        return $articles;
+    }
+
 }

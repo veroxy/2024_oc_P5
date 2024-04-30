@@ -89,6 +89,11 @@ try {
             $adminController->orderByTitleDesc();
             break;
 
+        case 'tri':
+            $adminController = new AdminController();
+            $adminController->orderBy();
+            break;
+
         default:
             throw new Exception("La page demandée n'existe pas.");
     }

@@ -211,6 +211,22 @@ class AdminController
         ]);
     }
 
+    public function orderBy(): void
+    {
+        $this->checkIfUserIsConnected();
+
+        $order = Utils::request("order", 'ASC');
+        $col = Utils::request("col", 'title');
+
+
+        $articleManager = new ArticleManager();
+        $articles       = $articleManager->orderBy($order, $col);
+        $view           = new View("Administration");
+        $view->render("admin", [
+            'articles' => $articles
+        ]);
+    }
+
     public function orderByTitleDesc(): void
     {
         $this->checkIfUserIsConnected();
@@ -221,4 +237,6 @@ class AdminController
             'articles' => $articles
         ]);
     }
+
+
 }
