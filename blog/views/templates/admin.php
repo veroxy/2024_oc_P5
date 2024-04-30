@@ -8,24 +8,91 @@
 <!--<h2>Edition des articles</h2>-->
 <h2>Admin Monitoring</h2>
 
-<div class="adminArticle">
-    <?php foreach ($articles as $article) { ?>
-        <div class="articleLine">
-            <div class="title"><?= $article->getTitle() ?></div>
-            <div class="content"><?= $article->getContent(200) ?></div>
-            <div class="content" id="<?= 'page_views_'.$article->getSlug() ?>">nb vues : <?= $article->getViews()>= 1 ?: (isset($_SESSION['page_views_'.$article->getSlug()]) ? $_SESSION['page_views_'.$article->getSlug()] : 0);  ?></div>
-            <div class="content">nb commentaires : <?= count($article->getComments()) ?></div>
-            <div class="content">date pubblication : <?= ucfirst(Utils::convertDateToFrenchFormat($article->getDateCreation()))?></div>
+<table class="adminArticle">
+    <tr class="articleHeaderLine">
+        <th class="t-cell title">title
+            <div class="tri">
+                <a class='asc'
+                   href='index.php?action=ASC&col=title'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les titres ?.') ?>>
+                    ASC
+                </a>
+                <a class='desc'
+                   href='index.php?action=DESC&col=title'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les titres ?.') ?>>
+                    DESC
+                </a>
 
-            <div><a class="submit"
-                    href="index.php?action=showArticle&id=<?= $article->getId() ?>">voir</a></div>
-            <div><a class="submit"
-                    href="index.php?action=showUpdateArticleForm&id=<?= $article->getId() ?>">Modifier</a></div>
-            <div><a class="submit"
-                    href="index.php?action=deleteArticle&id=<?= $article->getId() ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer cet article ?") ?> >Supprimer</a>
             </div>
-        </div>
+        </th>
+        <th class="t-cell content">short desc
+        </th>
+        <th class="t-cell">nb views
+            <div class="tri">
+                <a class='asc'
+                   href='index.php?action=tri&order=ASC&col=views'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les vues ?.') ?>>
+                    ASC
+                </a>
+                <a class='desc'
+                   href='index.php?action=tri&order=DESC&col=views'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les vues ?.') ?>>
+                    DESC
+                </a>
+
+            </div>
+        </th>
+        <th class="t-cell">nb commentaires
+            <div class="tri">
+                <a class='asc'
+                   href='index.php?action=tri&order=ASC&col=comments'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les commentaires ?.') ?>>
+                    ASC
+                </a>
+                <a class='desc'
+                   href='index.php?action=tri&order=DESC&col=comments'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les commentaires ?.') ?>>
+                    DESC
+                </a>
+
+            </div>
+        </th>
+        <th class="t-cell">date pubblication
+            <div class="tri">
+                <a class='asc'
+                   href='index.php?action=tri&order=ASC&col=date_creation'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les titres ?.') ?>>
+                    ASC
+                </a>
+                <a class='desc'
+                   href='index.php?action=tri&order=DESC&col=date_creation'
+                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les titres ?.') ?>>
+                    DESC
+                </a>
+
+            </div>
+        </th>
+        <th class="t-cell" colspan="3">actions</th>
+    </tr>
+    <?php foreach ($articles as $article) { ?>
+        <!--        <tr class="">-->
+        <tr class="articleLine">
+            <td class="title"><?= $article->getTitle() ?></td>
+            <td class="content"><?= $article->getContent(200) ?></td>
+            <td class="other"
+                id="<?= 'page_views_' . $article->getSlug() ?>"><?= $article->getViews() >= 1 ? $article->getViews() : (isset($_SESSION['page_views_' . $article->getSlug()]) ? $_SESSION['page_views_' . $article->getSlug()] : 0); ?></td>
+            <td class="other"><?= is_int($article->getComments()) ? $article->getComments() : count($article->getComments()) ?></td>
+            <td class="other"><?= ucfirst(Utils::convertDateToFrenchFormat($article->getDateCreation())) ?></td>
+            <td class="action"><a class="submit"
+                                  href="index.php?action=showArticle&id=<?= $article->getId() ?>">voir</a></td>
+            <td class="action"><a class="submit"
+                                  href="index.php?action=showUpdateArticleForm&id=<?= $article->getId() ?>">Modifier</a>
+            </td>
+            <td class="action"><a class="submit"
+                                  href="index.php?action=deleteArticle&id=<?= $article->getId() ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer cet article ?") ?> >Supprimer</a>
+            </td>
+        </tr>
     <?php } ?>
-</div>
+</table>
 
 <a class="submit" href="index.php?action=showUpdateArticleForm">Ajouter un article</a>

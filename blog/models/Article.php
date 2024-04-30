@@ -11,7 +11,7 @@ class Article extends AbstractEntity
     private string    $content      = "";
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate   = null;
-    private array     $comments     = [];
+    private array | int     $comments     = [];
     private int       $views        = 0;
     private string    $slug         = "";
 
@@ -54,7 +54,7 @@ class Article extends AbstractEntity
     /**
      * @return array
      */
-    public function getComments(): array
+    public function getComments(): array | int
     {
         return $this->comments;
     }
@@ -62,7 +62,7 @@ class Article extends AbstractEntity
     /**
      * @param array $comments
      */
-    public function setComments(array $comments): void
+    public function setComments(array | int $comments): void
     {
         $this->comments = $comments;
     }

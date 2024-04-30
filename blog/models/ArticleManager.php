@@ -11,21 +11,20 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getAllArticles(): array
     {
-        $commentManager = new CommentManager();
-
         $sql      = "SELECT * FROM article";
         $result   = $this->db->query($sql);
-        $articles = [];
+        $articles = $this->getComments($result);
+        return $articles;
+    }
 
-        while ($article = $result->fetch()) {
-//            var_dump($article);
+    private function getComments(PDOStatement $res): array
+    {
+        $commentManager = new CommentManager();
+        while ($article = $res->fetch()) {
             $comments = $commentManager->getAllCommentsByArticleId($article['id']);
-            $newbie   = new Article($article);
-            $newbie->setComments($comments);
-
-            $articles[] = $newbie;
-
-
+            $post     = new Article($article);
+            $post->setComments($comments);
+            $articles[] = $post;
         }
         return $articles;
     }
@@ -92,6 +91,19 @@ class ArticleManager extends AbstractEntityManager
     }
 
     /**
+     * @param Article $article
+     * @return void
+     */
+    public function updateViewsArticle(Article $article): void
+    {
+        $sql = "UPDATE article SET views = :views + 1  WHERE id = :id";
+        $this->db->query($sql, [
+            'views' => $article->getViews(),
+            'id' => $article->getId()
+        ]);
+    }
+
+    /**
      * Supprime un article.
      * @param int $id : l'id de l'article à supprimer.
      * @return void
@@ -101,4 +113,50 @@ class ArticleManager extends AbstractEntityManager
         $sql = "DELETE FROM article WHERE id = :id";
         $this->db->query($sql, ['id' => $id]);
     }
+
+/*    public function orderByTitleAsc(): array
+    {
+        $sql    = "SELECT * FROM article ORDER BY title ASC";
+        $result = $this->db->query($sql);
+        return $this->getComments($result);
+    }*/
+
+    public function orderByTitleDesc(): array
+    {
+        $sql    = "SELECT * FROM article ORDER BY title DESC ";
+        $result = $this->db->query($sql);
+        return $this->getComments($result);
+    }
+
+    public function orderBy(string $order, string $db_column): array
+    {
+        // soit case soit
+        if ($db_column != "comments") {
+            $sql      = "SELECT * FROM article ORDER BY $db_column $order";
+            $result   = $this->db->query($sql);
+            $articles = $this->getComments($result);
+        } else {
+            $sql      = "SELECT a.*, count(c.id_article) as comments
+                    FROM article a
+                        join
+                         comment c
+                    WHERE c.id_article=a.id
+                    GROUP BY c.id_article   
+                    ORDER BY $db_column $order";
+            $result   = $this->db->query($sql);
+            $articles = $this->getNbComments($result);
+        }
+        return $articles;
+    }
+
+    private function getNbComments(PDOStatement $res): array
+    {
+        while ($article = $res->fetch()) {
+
+            $post       = new Article($article);
+            $articles[] = $post;
+        }
+        return $articles;
+    }
+
 }

@@ -61,6 +61,10 @@ a {
     color: inherit;
 }
 
+table, th, td {
+    border-collapse: collapse;
+}
+
 /**
  * Styles des formulaires.
  */
@@ -284,6 +288,10 @@ a.info {
     margin: 5px 0 5px 0;
 }
 
+.detailComment div {
+    padding-top: 10px;
+}
+
 /* Page d'erreur */
 
 .error {
@@ -318,8 +326,13 @@ a.info {
     background-color: var(--headerColor);
 }
 
-.articleLine {
+/*.articleLine,
+.articleHeaderLine {
     display: flex;
+}*/
+
+.articleHeaderLine .t-cell{
+    font-size: 1.2em;
 }
 
 .articleLine div {
@@ -327,22 +340,62 @@ a.info {
     align-items: center;
 }
 
-.articleLine .title {
+.articleLine .title,
+.articleHeaderLine th {
     font-weight: bold;
+}
+.articleHeaderLine .t-cell{
+    min-width: 150px;
+}
+.articleLine .title,
+.articleHeaderLine .title {
     min-width: 200px;
     width: 200px;
 }
 
-.articleLine .content {
-    flex-grow: 1;
+.articleLine .content,
+.articleHeaderLine .content {
+    /*flex-grow: 1;*/
+    min-width: 300px;
+    width: 300px;
 }
 
-.articleLine > div {
+.articleLine > div,
+.articleLine > td,
+.articleHeaderLine > th {
     padding: 20px;
+}
+
+.articleLine > div,
+.articleLine,
+.articleHeaderLine {
     border: 1px solid var(--backgroundColor);
 }
 
-/** 
+.tri{
+    display: flex;
+    justify-content: space-around;
+}
+.desc:after {
+    content: "\21A1";
+}
+
+.asc:after {
+    content: "\219F";
+}
+
+.asc,
+.desc {
+    display: block;
+    font-size: 0.2em;
+}
+
+
+.asc:after,
+.desc:after {
+    font-size: 1em;
+}
+/**
  * Footer global de la page.
  */
 footer {
