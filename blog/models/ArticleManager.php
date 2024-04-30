@@ -114,12 +114,12 @@ class ArticleManager extends AbstractEntityManager
         $this->db->query($sql, ['id' => $id]);
     }
 
-    public function orderByTitleAsc(): array
+/*    public function orderByTitleAsc(): array
     {
         $sql    = "SELECT * FROM article ORDER BY title ASC";
         $result = $this->db->query($sql);
         return $this->getComments($result);
-    }
+    }*/
 
     public function orderByTitleDesc(): array
     {

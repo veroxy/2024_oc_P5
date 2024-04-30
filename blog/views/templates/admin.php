@@ -13,17 +13,16 @@
         <th class="t-cell title">title
             <div class="tri">
                 <a class='asc'
-                   href='index.php?action=orderByTitleAsc'
+                   href='index.php?action=ASC&col=title'
                     <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les titres ?.') ?>>
                     ASC
                 </a>
                 <a class='desc'
-                   href='index.php?action=orderByTitleDesc'
+                   href='index.php?action=DESC&col=title'
                     <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les titres ?.') ?>>
                     DESC
                 </a>
 
-<!--                <input hidden="hidden" name="orderByTitleDesc" class="desc">-->
             </div>
         </th>
         <th class="t-cell content">short desc
@@ -41,7 +40,6 @@
                     DESC
                 </a>
 
-                <!--                <input hidden="hidden" name="orderByTitleDesc" class="desc">-->
             </div>
         </th>
         <th class="t-cell">nb commentaires
@@ -57,7 +55,6 @@
                     DESC
                 </a>
 
-                <!--                <input hidden="hidden" name="orderByTitleDesc" class="desc">-->
             </div>
         </th>
         <th class="t-cell">date pubblication
@@ -68,12 +65,11 @@
                     ASC
                 </a>
                 <a class='desc'
-                   href='index.php?action=tri&order=ASC&col=date_creation'
+                   href='index.php?action=tri&order=DESC&col=date_creation'
                     <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les titres ?.') ?>>
                     DESC
                 </a>
 
-                <!--                <input hidden="hidden" name="orderByTitleDesc" class="desc">-->
             </div>
         </th>
         <th class="t-cell" colspan="3">actions</th>
