@@ -13,12 +13,12 @@
         <th class="t-cell title">title
             <div class="tri">
                 <a class='asc'
-                   href='index.php?action=ASC&col=title'
+                   href='index.php?action=tri&order=ASC&col=title'
                     <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les titres ?.') ?>>
                     ASC
                 </a>
                 <a class='desc'
-                   href='index.php?action=DESC&col=title'
+                   href='index.php?action=tri&order=DESC&col=title'
                     <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les titres ?.') ?>>
                     DESC
                 </a>
@@ -81,7 +81,7 @@
             <td class="content"><?= $article->getContent(200) ?></td>
             <td class="other"
                 id="<?= 'page_views_' . $article->getSlug() ?>"><?= $article->getViews() >= 1 ? $article->getViews() : (isset($_SESSION['page_views_' . $article->getSlug()]) ? $_SESSION['page_views_' . $article->getSlug()] : 0); ?></td>
-            <td class="other"><?= is_int($article->getComments()) ? $article->getComments() : count($article->getComments()) ?></td>
+            <td class="other"><?=$article->getComments() ?></td>
             <td class="other"><?= ucfirst(Utils::convertDateToFrenchFormat($article->getDateCreation())) ?></td>
             <td class="action"><a class="submit"
                                   href="index.php?action=showArticle&id=<?= $article->getId() ?>">voir</a></td>
