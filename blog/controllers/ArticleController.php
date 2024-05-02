@@ -17,13 +17,13 @@ class ArticleController
 
     /**
      * Affiche le détail d'un article.
+     * TODO infos / vues à l'affichage ++
      * @return void
      */
     public function showArticle(): void
     {
         // Récupération de l'id de l'article demandé.
-        $id = Utils::request("id", -1);
-
+        $id             = Utils::request("id", -1);
         $articleManager = new ArticleManager();
         $article        = $articleManager->getArticleById($id);
 
@@ -34,15 +34,13 @@ class ArticleController
         if ($article->getViews() >= 1 && isset($_SESSION['page_views_' . $article->getSlug()])) {
             // Increment the page view counter from slug no ID to not easily retrieve data
             $_SESSION['page_views_' . $article->getSlug()]++;
-        }
-
-        else {
+        } else {
             // Set the initial page view counter to 1
             $_SESSION['page_views_' . $article->getSlug()] = 1;
             // increase article.viaws in db +1 just for the firstime
             // call updateViewsArticle()
             $articleManager->updateViewsArticle($article);
-            var_dump( "<h3> SESSION N'EXIST PAS views: ". $article->getViews()."</h3> ");
+            var_dump("<h3> SESSION N'EXIST PAS views: " . $article->getViews() . "</h3> ");
 
             var_dump("viewson db", $article->getViews());
 

@@ -152,11 +152,9 @@ class ArticleManager extends AbstractEntityManager
     private function getNbComments(PDOStatement $res): array
     {
         while ($article = $res->fetch()) {
-
             $post       = new Article($article);
             $articles[] = $post;
         }
         return $articles;
     }
-
 }
