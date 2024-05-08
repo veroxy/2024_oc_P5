@@ -31,25 +31,24 @@ class ArticleController
             throw new Exception("L'article demandé n'existe pas.");
         }
 
-        if ($article->getViews() >= 1 && isset($_SESSION['page_views_' . $article->getSlug()])) {
-            // Increment the page view counter from slug no ID to not easily retrieve data
-            $_SESSION['page_views_' . $article->getSlug()]++;
-        } else {
-            // Set the initial page view counter to 1
+        // set session()
+        // set
+        // took from bdd > article getSlug()
+        // ses
+        if (!isset($_SESSION['page_views_' . $article->getSlug()])) {
             $_SESSION['page_views_' . $article->getSlug()] = 1;
-            // increase article.viaws in db +1 just for the firstime
-            // call updateViewsArticle()
-            $articleManager->updateViewsArticle($article);
-            var_dump("<h3> SESSION N'EXIST PAS views: " . $article->getViews() . "</h3> ");
-
-            var_dump("viewson db", $article->getViews());
-
+        } else {
+            $_SESSION['page_views_' . $article->getSlug()]++;
         }
+
+        $articleManager->updateViewsArticle($article);
+        var_dump("show controller",$article->getViews());
         $commentManager = new CommentManager();
         $comments       = $commentManager->getAllCommentsByArticleId($id);
         $view           = new View($article->getTitle());
         $view->render("detailArticle", ['article' => $article, 'comments' => $comments]);
     }
+
 
     /**
      * Affiche le formulaire d'ajout d'un article.

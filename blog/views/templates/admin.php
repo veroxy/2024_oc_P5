@@ -80,7 +80,7 @@
             <td class="title"><?= $article->getTitle() ?></td>
             <td class="content"><?= $article->getContent(200) ?></td>
             <td class="other"
-                id="<?= 'page_views_' . $article->getSlug() ?>"><?= $article->getViews() >= 1 ? $article->getViews() : (isset($_SESSION['page_views_' . $article->getSlug()]) ? $_SESSION['page_views_' . $article->getSlug()] : 0); ?></td>
+                id="<?= 'page_views_' . $article->getSlug() ?>"><?= $article->getViews(); ?></td>
             <td class="other"><?=$article->getComments() ?></td>
             <td class="other"><?= ucfirst(Utils::convertDateToFrenchFormat($article->getDateCreation())) ?></td>
             <td class="action"><a class="submit"

@@ -4,7 +4,6 @@
  * Il affiche également un formulaire pour ajouter un commentaire.
  */
 
-
 ?>
 
 <article class="mainArticle">

@@ -17,10 +17,10 @@ class ArticleManager extends AbstractEntityManager
         return $articles;
     }
 
-    private function getComments(PDOStatement $res): array
+    private function getComments(PDOStatement $result): array
     {
         $commentManager = new CommentManager();
-        while ($article = $res->fetch()) {
+        while ($article = $result->fetch()) {
             $comments = $commentManager->getAllCommentsByArticleId($article['id']);
             $post     = new Article($article);
             $post->setComments($comments);
@@ -29,6 +29,19 @@ class ArticleManager extends AbstractEntityManager
         return $articles;
     }
 
+    /**
+     * Create a array object
+     * @param PDOStatement $result
+     * @return array
+     */
+    private function getArrayObjArticle(PDOStatement $result): array
+    {
+        while ($article = $result->fetch()) {
+            $post       = new Article($article);
+            $articles[] = $post;
+        }
+        return $articles;
+    }
     /**
      * Récupère un article par son id.
      * @param int $id : l'id de l'article.
@@ -91,16 +104,22 @@ class ArticleManager extends AbstractEntityManager
     }
 
     /**
+     * Update nb views in bdd - every refresh page articleDetails
      * @param Article $article
-     * @return void
+     * @return
      */
-    public function updateViewsArticle(Article $article): void
+    public function updateViewsArticle(Article $article): PDOStatement
     {
-        $sql = "UPDATE article SET views = :views + 1  WHERE id = :id";
-        $this->db->query($sql, [
-            'views' => $article->getViews(),
+        $views  = $article->getViews() + 1;
+        $sql    = "UPDATE article SET views = :views WHERE id = :id";
+        $result = $this->db->query($sql, [
+            'views' => $views,
             'id' => $article->getId()
         ]);
+
+        $article->setViews($views);
+        return $result;
+
     }
 
     /**
@@ -114,12 +133,12 @@ class ArticleManager extends AbstractEntityManager
         $this->db->query($sql, ['id' => $id]);
     }
 
-/*    public function orderByTitleAsc(): array
-    {
-        $sql    = "SELECT * FROM article ORDER BY title ASC";
-        $result = $this->db->query($sql);
-        return $this->getComments($result);
-    }*/
+    /*    public function orderByTitleAsc(): array
+        {
+            $sql    = "SELECT * FROM article ORDER BY title ASC";
+            $result = $this->db->query($sql);
+            return $this->getComments($result);
+        }*/
 
     public function orderByTitleDesc(): array
     {
@@ -128,9 +147,13 @@ class ArticleManager extends AbstractEntityManager
         return $this->getComments($result);
     }
 
+    /**
+     * @param string $order
+     * @param string $db_column
+     * @return array
+     */
     public function orderBy(string $order, string $db_column): array
     {
-        // soit case soit
         if ($db_column != "comments") {
             $sql      = "SELECT * FROM article ORDER BY $db_column $order";
             $result   = $this->db->query($sql);
@@ -144,17 +167,10 @@ class ArticleManager extends AbstractEntityManager
                     GROUP BY c.id_article   
                     ORDER BY $db_column $order";
             $result   = $this->db->query($sql);
-            $articles = $this->getNbComments($result);
+
+            $articles = $this->getArrayObjArticle($result);
         }
         return $articles;
     }
 
-    private function getNbComments(PDOStatement $res): array
-    {
-        while ($article = $res->fetch()) {
-            $post       = new Article($article);
-            $articles[] = $post;
-        }
-        return $articles;
-    }
 }

@@ -12,7 +12,7 @@ class Article extends AbstractEntity
     private ?DateTime $dateCreation = null;
     private ?DateTime $dateUpdate   = null;
     private array|int $comments     = [];
-    private int       $views        = 0;
+    private ?int       $views        = null;
     private string    $slug         = "";
 
     public function __construct(array $data = [])
@@ -46,9 +46,10 @@ class Article extends AbstractEntity
         return $this->views;
     }
 
-    public function setViews(int $views): void
+    public function setViews(?int $views): void
     {
-        $this->views = $views;
+
+        $this->views = $views != null ? $views : 0;
     }
 
     /**
@@ -57,7 +58,6 @@ class Article extends AbstractEntity
     public function getComments(): array|int
     {
         return is_int($this->comments) ? $this->comments : count($this->comments);
-
     }
 
     /**
