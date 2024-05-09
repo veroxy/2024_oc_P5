@@ -190,48 +190,22 @@ class AdminController
         $this->checkIfUserIsConnected();
 
         $id = Utils::request("id", -1);
-
         // On supprime l'article.
         $commentManager = new CommentManager();
-        var_dump($id);
         $commentManager->deleteComment($id);
 
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }
 
-    public function orderByTitleAsc(): void
-    {
-        $this->checkIfUserIsConnected();
-        $articleManager = new ArticleManager();
-        $articles       = $articleManager->orderByTitleAsc();
-        $view           = new View("Administration");
-        $view->render("admin", [
-            'articles' => $articles
-        ]);
-    }
-
     public function orderBy(): void
     {
         $this->checkIfUserIsConnected();
-
-        $order = Utils::request("order", 'ASC');
-        $col = Utils::request("col", 'title');
-
+        $order          = Utils::request("order", 'ASC');
+        $col            = Utils::request("col", 'title');
 
         $articleManager = new ArticleManager();
-        $articles       = $articleManager->orderBy($order, $col);
-        $view           = new View("Administration");
-        $view->render("admin", [
-            'articles' => $articles
-        ]);
-    }
-
-    public function orderByTitleDesc(): void
-    {
-        $this->checkIfUserIsConnected();
-        $articleManager = new ArticleManager();
-        $articles       = $articleManager->orderByTitleDesc();
+        $articles       = $articleManager->orderBy($col, $order); ;
         $view           = new View("Administration");
         $view->render("admin", [
             'articles' => $articles

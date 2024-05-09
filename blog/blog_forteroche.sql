@@ -1,6 +1,6 @@
-DROP DATABASE if exists 2024_oc_p5;
-CREATE DATABASE 2024_oc_p5;
-USE `2024_oc_p5`;
+DROP DATABASE if exists blog_forteroche;
+CREATE DATABASE blog_forteroche;
+USE `blog_forteroche`;
 
 
 

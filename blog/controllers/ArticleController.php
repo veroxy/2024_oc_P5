@@ -22,8 +22,7 @@ class ArticleController
     public function showArticle(): void
     {
         // Récupération de l'id de l'article demandé.
-        $id = Utils::request("id", -1);
-
+        $id             = Utils::request("id", -1);
         $articleManager = new ArticleManager();
         $article        = $articleManager->getArticleById($id);
 
@@ -31,27 +30,13 @@ class ArticleController
             throw new Exception("L'article demandé n'existe pas.");
         }
 
-        if ($article->getViews() >= 1 && isset($_SESSION['page_views_' . $article->getSlug()])) {
-            // Increment the page view counter from slug no ID to not easily retrieve data
-            $_SESSION['page_views_' . $article->getSlug()]++;
-        }
-
-        else {
-            // Set the initial page view counter to 1
-            $_SESSION['page_views_' . $article->getSlug()] = 1;
-            // increase article.viaws in db +1 just for the firstime
-            // call updateViewsArticle()
-            $articleManager->updateViewsArticle($article);
-            var_dump( "<h3> SESSION N'EXIST PAS views: ". $article->getViews()."</h3> ");
-
-            var_dump("viewson db", $article->getViews());
-
-        }
+        $article        = $articleManager->updateViewsArticle($article);
         $commentManager = new CommentManager();
         $comments       = $commentManager->getAllCommentsByArticleId($id);
         $view           = new View($article->getTitle());
         $view->render("detailArticle", ['article' => $article, 'comments' => $comments]);
     }
+
 
     /**
      * Affiche le formulaire d'ajout d'un article.
