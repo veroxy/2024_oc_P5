@@ -32,7 +32,7 @@
             echo '  <div class="smiley">☻</div>';
             echo '  <div class="detailComment">';
             echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
-            echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
+            echo ' SHO     <p class="content">' . Utils::format($comment->getContent()) . '</p>';
             if (isset($_SESSION['user'])) {
                 echo "<div><a class='submit'
                     href='index.php?action=deleteComment&id=" . $comment->getId() . "'" . Utils::askConfirmation('Êtes-vous sûr de vouloir supprimer cet comment ?.') . " >Supprimer</a></div>";

@@ -3,6 +3,7 @@
 require_once 'config/_config.php';
 require_once 'config/autoload.php';
 
+// ROUTING
 // On récupère l'action demandée par l'utilisateur.
 // Si aucune action n'est demandée, on affiche la page d'accueil.
 $action = Utils::request('action', 'home');
@@ -37,8 +38,7 @@ try {
             $commentController->addComment();
             break;
 
-
-        // Section admin & connexion. 
+        // Section admin & connexion.
         case 'admin':
             $adminController = new AdminController();
             $adminController->showAdmin();
@@ -77,16 +77,6 @@ try {
         case 'deleteComment':
             $adminController = new AdminController();
             $adminController->deleteComment();
-            break;
-
-        case 'orderByTitleAsc':
-            $adminController = new AdminController();
-            $adminController->orderByTitleAsc();
-            break;
-
-        case 'orderByTitleDesc':
-            $adminController = new AdminController();
-            $adminController->orderByTitleDesc();
             break;
 
         case 'tri':

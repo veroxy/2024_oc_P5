@@ -17,7 +17,6 @@ class ArticleController
 
     /**
      * Affiche le détail d'un article.
-     * TODO infos / vues à l'affichage ++
      * @return void
      */
     public function showArticle(): void
@@ -31,18 +30,7 @@ class ArticleController
             throw new Exception("L'article demandé n'existe pas.");
         }
 
-        // set session()
-        // set
-        // took from bdd > article getSlug()
-        // ses
-        if (!isset($_SESSION['page_views_' . $article->getSlug()])) {
-            $_SESSION['page_views_' . $article->getSlug()] = 1;
-        } else {
-            $_SESSION['page_views_' . $article->getSlug()]++;
-        }
-
-        $articleManager->updateViewsArticle($article);
-        var_dump("show controller",$article->getViews());
+        $article        = $articleManager->updateViewsArticle($article);
         $commentManager = new CommentManager();
         $comments       = $commentManager->getAllCommentsByArticleId($id);
         $view           = new View($article->getTitle());
