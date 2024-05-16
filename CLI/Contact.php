@@ -3,22 +3,21 @@
 #[AllowDynamicProperties]
 class Contact
 {
-    private string $name         = '';
-    private string $email        = '';
+    private string $name = '';
+    private string $email = '';
     private string $phone_number = '';
-    private int    $id           = 0;
+    private int    $id = 0 ;
 
-    public function __construct(array $req = null)
-    {
-        if ($req) {
-            *
-            $this->id           = $req['id'];
-            $this->name         = $req['name'];
-            $this->phone_number = $req['phone_number'];
-            $this->email        = $req['email'];
-            $this->id           = $req['id'];
-        }
+public function __construct(array $req = null)
+{
+    if ($req) {
+        $this->id   = $req['id'];
+        $this->name = $req['name'];
+        $this->phone_number = $req['phone_number'];
+        $this->email = $req['email'] ;
+        $this->id = $req['id'] ;
     }
+}
 
     /**
      * @return string
@@ -88,10 +87,11 @@ class Contact
     public function setName($name): void
     {
         $user_name = filter_var($name, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-        $match     = preg_match('/^[a-z-A-Z]{3}+/', $user_name);
 
-        if ($match) {
-            echo $this->$name = ucfirst($user_name);
+        $match = preg_match('/^[a-z-A-Z]{3}+/', $user_name);
+
+        if ($match){
+            echo $this->$name = ucfirst($user_name) ;
         }
     }
 
@@ -113,7 +113,7 @@ class Contact
         var_dump($phone_number, "filter var :", $phone, $match);
         if ($match) {
             echo "Numero valide : ";
-            echo $this->phone_number = strlen($phone) <= 14 ? $phone : $phone_number . '\n';
+            echo $this->phone_number = strlen($phone)<= 14 ? $phone : $phone_number . '\n';
         } else {
             echo "Numero invalide !!\n";
         }
