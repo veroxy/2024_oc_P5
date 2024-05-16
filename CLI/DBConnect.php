@@ -2,7 +2,6 @@
 
 class DBConnect
 {
-
     private $db;
     private $dbname = "2024_oc_p5_cli";
     public function __construct()
@@ -21,6 +20,5 @@ class DBConnect
             return $this->db;
         }
     }
-
 
 }

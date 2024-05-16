@@ -9,14 +9,12 @@ include "DBConnect.php";
 
 class ContactManager
 {
-
     private $db;
 
     public function __construct()
     {
         $this->getDb();
     }
-
 
     /**
      * @return PDO|null
@@ -51,9 +49,6 @@ class ContactManager
             $query->execute();
 
             echo ft_colorSucces("vous avez créer un nouveau contact: " . $name_contact . " avec le mail : " . $email . " et le numéro " . $phone_number . "\n");
-
-            // risque d'erreur multiples inseetions ??
-//            $sql   = "SELECT * FROM `contact` ORDER BY id DESC LIMIT 1";
 
             $sql   = "SELECT * FROM `contact` WHERE phone_number=:phone_number";
             $query = $this->db->prepare($sql);
@@ -154,11 +149,5 @@ class ContactManager
         }
         return $value;
     }
-
-    public function update(Contact $contact)
-    {
-
-    }
-
 
 }

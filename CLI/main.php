@@ -12,12 +12,6 @@ function ft_detail()
 
 }
 */
-/*
-function toString(Contact $contact)
-{
-
-    echo " contact: #" . $contact->id . "," . $contact->name . " avec le mail : " . $contact->email . " et le numéro " . $contact->phone_number . ".";
-}*/
 function objectExist($entity, $array, $new_element)
 {
     if ($entity) {
@@ -37,7 +31,7 @@ function ft_colorError(string $str)
 
 function ft_colorSucces(string $str)
 {
-    //The characters \033 indicate the start of an escape code. [31m is the colour red. [0m signifies the end of the coded fragment.
+    //The characters \033 indicate the start of an escape code. [32m is the colour green. [0m signifies the end of the coded fragment.
     return "\033[32m" . $str . "\033[0m";
 }
 
@@ -67,7 +61,6 @@ $contacts = [];
 while (true) {
     $input = ft_readline();
     $input = trim($input);
-//    echo !empty($input) ?  "Vous avez saisi : $input\n" : "Voici la list des commandes possibles : ";
     $params  = explode(' ', trim($input));
     $command = strtolower($params[0]);
     array_shift($params);
