@@ -18,34 +18,6 @@ public function __construct(array $req = null)
         $this->id = $req['id'] ;
     }
 }
-    /**
-     * @param PDO|array $objContact
-     * @return void
-     */
-  /*  public static function setProps(PDO|array $objContact)
-    {
-
-        if ($objContact) {
-            foreach ($objContact as $key => $value) {
-                switch ($key) {
-                    case "name":
-                        $this->setName($value);
-                        break;
-                    case "email":
-                        $this->setEmail($value);
-                        break;
-                    case "phone_number":
-                        $this->setPhoneNumber($value);
-                        break;
-                    case "id":
-                        $this->setId($value);
-                        break;
-
-                }
-            }
-        }
-
-    }*/
 
     /**
      * @return string
@@ -66,7 +38,6 @@ public function __construct(array $req = null)
 
             $mask = "|%5.5s |%-10.10s | %-10.10s | %-10.10s  |\n";
             printf($mask, 'id', 'name', 'email', 'phone_number');
-
             printf($mask, $value);
 
         }
