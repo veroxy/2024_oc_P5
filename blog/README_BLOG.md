@@ -1,6 +1,8 @@
 # P5 admin page
 ---
-![apercu]()
+
+
+
 ### [CODE SOURCE GITHUB](https://github.com/OpenClassrooms-Student-Center/PHP-blog-emilie-forteroche)
 > Emilie a pris contact avec vous, développeur freelance, afin de mettre à jour son blog. Elle souhaiterait ajouter une
 > page en partie admin pour lui permettre de
@@ -113,4 +115,6 @@ Ce projet a été réalisé avec PHP 8.2. Bien que d'autres versions de PHP puis
 
 ### Copyright :
 Projet utilisé dans le cadre d'une formation Openclassrooms. 
+
+
 
