@@ -1,5 +1,6 @@
 <?php
 
+use function Cli\ft_colorError;
 use function Cli\ft_colorSucces;
 use function Cli\ft_readline;
 
@@ -116,12 +117,15 @@ class ContactManager
             $query = $this->db->prepare($sql);
             $query->BindParam('id', $id, PDO::PARAM_INT);
             $query->execute();
-
-            $req     = $query->fetch();
+            $req = $query->fetch();
+        }
+        if ($req) {
             $contact = new Contact($req);
             echo ft_colorSucces($contact->__toString());
-            return $contact;
+        } else {
+            echo ft_colorError("le contact ciblé n'a pas été trouvé \n");
         }
+
     }
 
     /**
@@ -131,11 +135,9 @@ class ContactManager
     function delete(int $id)
     {
         $value = "ERREUR, il y un  problème dans la requete";
-        echo "etes vous sûr de vouloir suprimer le " .
-            $this->findOneByid($id);
-
-//        echo("\e[0m\e[34mPromt>\e[0m");
-        $validsdtin = ft_readline(true);
+//        echo "etes vous sûr de vouloir suprimer le " .
+        $contact_exist = $this->findOneByid($id);
+        $validsdtin = ft_readline($contact_exist);
         if ($validsdtin) {
             if ($this->db) {
                 $sql   = "DELETE FROM contact WHERE id=:id";
@@ -144,6 +146,8 @@ class ContactManager
                 $query->execute();
                 echo ft_colorSucces("Vous avez supprimé le contact $id") . "\n";
             }
+
+
         } else {
             echo "vous vous etes trompé de contact? recommencez.\n";
         }

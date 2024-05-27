@@ -27,23 +27,6 @@ public function __construct(array $req = null)
         return sprintf("contact: #" . $this->id . "," . $this->name . " avec le mail : " . $this->email . " et le numéro " . $this->phone_number . ".\n");
     }
 
-    public function list()
-    {
-        if ($this->db) {
-            $sql   = 'SELECT * FROM contact ORDER BY id ASC';
-            $query = $this->db->prepare($sql);
-            $query->execute();
-            $query->execute();
-            $value = $query->fetchAll();
-
-            $mask = "|%5.5s |%-10.10s | %-10.10s | %-10.10s  |\n";
-            printf($mask, 'id', 'name', 'email', 'phone_number');
-            printf($mask, $value);
-
-        }
-        return $value ? $value : $this->sql_error;
-    }
-
     /**
      * @return int
      */
