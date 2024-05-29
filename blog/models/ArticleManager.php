@@ -6,12 +6,12 @@
 class ArticleManager extends AbstractEntityManager
 {
     /**
-     * Récupère tous les articles.
+     * Récupère tous les articles par ordre décroissant d'ajout
      * @return array : un tableau d'objets Article.
      */
     public function getAllArticles(): array
     {
-        $sql      = "SELECT * FROM article";
+        $sql      = "SELECT * FROM article ORDER BY date_creation DESC";
         $result   = $this->db->query($sql);
         $articles = $this->getComments($result);
         return $articles;
@@ -139,7 +139,7 @@ class ArticleManager extends AbstractEntityManager
                     FROM article a
                         join
                          comment c
-                    WHERE c.id_article=a.id
+                    WHERE c.id_article=a.id 
                     GROUP BY c.id_article   
                     ORDER BY $db_column $order";
                 $result   = $this->db->query($sql);

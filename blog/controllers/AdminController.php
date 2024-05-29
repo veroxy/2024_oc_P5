@@ -22,7 +22,9 @@ class AdminController
         // On affiche la page d'administration.
         $view = new View("Administration");
         $view->render("admin", [
-            'articles' => $articles
+            'articles' => $articles,
+            'col' => 'date_creation',
+            'order' => 'DESC'
         ]);
     }
 
@@ -208,7 +210,9 @@ class AdminController
         $articles       = $articleManager->orderBy($col, $order); ;
         $view           = new View("Administration");
         $view->render("admin", [
-            'articles' => $articles
+            'articles' => $articles,
+            'col' => $col,
+            'order' => $order
         ]);
     }
 

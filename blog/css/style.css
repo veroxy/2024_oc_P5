@@ -331,7 +331,7 @@ a.info {
     display: flex;
 }*/
 
-.articleHeaderLine .t-cell{
+.articleHeaderLine .t-cell {
     font-size: 1.2em;
 }
 
@@ -344,9 +344,11 @@ a.info {
 .articleHeaderLine th {
     font-weight: bold;
 }
-.articleHeaderLine .t-cell{
+
+.articleHeaderLine .t-cell {
     min-width: 150px;
 }
+
 .articleLine .title,
 .articleHeaderLine .title {
     min-width: 200px;
@@ -372,10 +374,11 @@ a.info {
     border: 1px solid var(--backgroundColor);
 }
 
-.tri{
+.tri {
     display: flex;
     justify-content: space-around;
 }
+
 .desc:after {
     content: "\21A1";
 }
@@ -388,13 +391,23 @@ a.info {
 .desc {
     display: block;
     font-size: 0.2em;
+    padding: 2px 5px;
+    border-radius: 5px;
 }
 
+.asc:hover,
+.desc:hover,
+.asc.active,
+.desc.active
+{
+    background-color: var(--headerColor);
+}
 
 .asc:after,
 .desc:after {
     font-size: 1em;
 }
+
 /**
  * Footer global de la page.
  */
