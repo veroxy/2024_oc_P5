@@ -13,13 +13,11 @@
         <th class="t-cell title">title
             <div class="tri">
                 <a class='asc'
-                   href='index.php?action=tri&order=ASC&col=title'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les titres ?.') ?>>
+                   href='index.php?action=tri&order=ASC&col=title'>
                     ASC
                 </a>
                 <a class='desc'
-                   href='index.php?action=tri&order=DESC&col=title'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les titres ?.') ?>>
+                   href='index.php?action=tri&order=DESC&col=title'>
                     DESC
                 </a>
 
@@ -30,13 +28,11 @@
         <th class="t-cell">nb views
             <div class="tri">
                 <a class='asc'
-                   href='index.php?action=tri&order=ASC&col=views'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les vues ?.') ?>>
+                   href='index.php?action=tri&order=ASC&col=views'>
                     ASC
                 </a>
                 <a class='desc'
-                   href='index.php?action=tri&order=DESC&col=views'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les vues ?.') ?>>
+                   href='index.php?action=tri&order=DESC&col=views'>
                     DESC
                 </a>
 
@@ -45,13 +41,11 @@
         <th class="t-cell">nb commentaires
             <div class="tri">
                 <a class='asc'
-                   href='index.php?action=tri&order=ASC&col=comments'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les commentaires ?.') ?>>
+                   href='index.php?action=tri&order=ASC&col=comments'>
                     ASC
                 </a>
                 <a class='desc'
-                   href='index.php?action=tri&order=DESC&col=comments'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les commentaires ?.') ?>>
+                   href='index.php?action=tri&order=DESC&col=comments'>
                     DESC
                 </a>
 
@@ -60,13 +54,11 @@
         <th class="t-cell">date pubblication
             <div class="tri">
                 <a class='asc'
-                   href='index.php?action=tri&order=ASC&col=date_creation'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en ASC les titres ?.') ?>>
+                   href='index.php?action=tri&order=ASC&col=date_creation'>
                     ASC
                 </a>
                 <a class='desc'
-                   href='index.php?action=tri&order=DESC&col=date_creation'
-                    <?= Utils::askConfirmation('Êtes-vous sûr de vouloir réordonner en DESC les titres ?.') ?>>
+                   href='index.php?action=tri&order=DESC&col=date_creation'>
                     DESC
                 </a>
 
