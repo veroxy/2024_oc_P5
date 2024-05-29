@@ -17,6 +17,11 @@ class ArticleManager extends AbstractEntityManager
         return $articles;
     }
 
+    /**
+     * Récupère la relation One To Many Article -> Comments
+     * @param PDOStatement $result
+     * @return array
+     */
     private function getComments(PDOStatement $result): array
     {
         $commentManager = new CommentManager();
@@ -122,7 +127,8 @@ class ArticleManager extends AbstractEntityManager
     }
 
     /**
-     * Request Order By Asc/Desc from admin.php -
+     *
+     * Request Order By Asc/Desc selon la colonne à ordoner
      * @param string $order Asc/Desc
      * @param string $db_column views/title/date/comments
      * @return array
@@ -135,13 +141,13 @@ class ArticleManager extends AbstractEntityManager
                 $result   = $this->db->query($sql);
                 $articles = $this->getComments($result);
             } else {
+                // selectionner tous les articles pocédant 0/+ comments
                 $sql      = "SELECT a.*, count(c.id_article) as comments
-                    FROM article a
-                        join
-                         comment c
-                    WHERE c.id_article=a.id 
-                    GROUP BY c.id_article   
-                    ORDER BY $db_column $order";
+                            FROM article a
+                            LEFT JOIN comment c 
+                            ON a.id = c.id_article
+                            GROUP BY a.id  
+                            ORDER BY $db_column $order";
                 $result   = $this->db->query($sql);
                 $articles = $this->getArrayObjArticle($result);
             }

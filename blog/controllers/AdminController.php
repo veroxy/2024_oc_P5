@@ -200,6 +200,10 @@ class AdminController
         Utils::redirect("admin");
     }
 
+    /**
+     * tri / ordonne colonne de données en asc/desc
+     * @return void
+     */
     public function orderBy(): void
     {
         $this->checkIfUserIsConnected();
